@@ -1,6 +1,6 @@
 ﻿namespace SchoolProject.Core
 {
-    public class Class1
+    public class CoreDependencies
     {
 
     }

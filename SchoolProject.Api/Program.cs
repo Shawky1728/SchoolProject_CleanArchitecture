@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using SchoolProject.Infrastructure.Data;
+
 namespace SchoolProject.Api
 {
     public class Program
@@ -12,6 +15,10 @@ namespace SchoolProject.Api
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+
+            // Add Connection String
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             var app = builder.Build();
 
