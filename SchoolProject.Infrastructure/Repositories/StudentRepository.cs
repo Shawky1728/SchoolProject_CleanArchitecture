@@ -23,7 +23,7 @@ namespace SchoolProject.Infrastructure.Repositories
         #region Methods
         public async Task<List<Student>> GetAllStudentsAsync(CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Students.ToListAsync(cancellationToken);
+            return await _dbContext.Students.Include(s => s.Department).ToListAsync(cancellationToken);
         }
 
 

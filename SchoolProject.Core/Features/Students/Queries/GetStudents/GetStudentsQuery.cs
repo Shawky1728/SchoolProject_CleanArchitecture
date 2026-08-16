@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SchoolProject.Core.Features.Students.Queries.GetStudents
 {
-    public class GetStudentsQuery:IRequest<List<Student>>
+    public class GetStudentsQuery:IRequest<List<GetStudentsResponse>>
     {
     }
 }

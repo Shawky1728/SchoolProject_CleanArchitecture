@@ -1,11 +1,12 @@
-﻿using MediatR;
+﻿using Mapster;
+using MediatR;
 using SchoolProject.Data.Entities;
 using SchoolProject.Service.Abstract;
 
 
 namespace SchoolProject.Core.Features.Students.Queries.GetStudents
 {
-    public class GetStudentsHandler : IRequestHandler<GetStudentsQuery, List<Student>>
+    public class GetStudentsHandler : IRequestHandler<GetStudentsQuery, List<GetStudentsResponse>>
     {
         #region Fields
         private readonly IStudentService _studentService;
@@ -20,9 +21,11 @@ namespace SchoolProject.Core.Features.Students.Queries.GetStudents
         #endregion
 
         #region Methods
-        public async Task<List<Student>> Handle(GetStudentsQuery request, CancellationToken cancellationToken)
+        public async Task<List<GetStudentsResponse>> Handle(GetStudentsQuery request, CancellationToken cancellationToken)
         {
-            return await _studentService.GetAllStudentsAsync();
+            var students = await _studentService.GetAllStudentsAsync();
+            var response = students.Adapt<List<GetStudentsResponse>>();
+            return response;
         }
         #endregion
     }
