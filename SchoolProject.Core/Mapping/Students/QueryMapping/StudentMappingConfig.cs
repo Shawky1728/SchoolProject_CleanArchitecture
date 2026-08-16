@@ -11,8 +11,11 @@ namespace SchoolProject.Core.Mapping.Students.QueryMapping
     {
         public void Register(TypeAdapterConfig config)
         {
+            // mapping Student entity to GetStudentsResponse 
             config.NewConfig<Student,GetStudentsResponse>()
                 .Map(dest => dest.DepartmentName, src => src.Department.DName);
+
+
         }
     }
 }
