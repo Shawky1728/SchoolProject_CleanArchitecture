@@ -6,5 +6,6 @@ namespace SchoolProject.Core.Features.Students.Queries.GetStudents
 {
     public class GetStudentsQuery:IRequest<Response<List<GetStudentsResponse>>>
     {
+        
     }
 }
