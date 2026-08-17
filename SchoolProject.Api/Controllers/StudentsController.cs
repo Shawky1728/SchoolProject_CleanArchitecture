@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SchoolProject.Core.Features.Students.Queries.GetStudentById;
 using SchoolProject.Core.Features.Students.Queries.GetStudents;
+using SchoolProject.Data.AppMetaData;
 
 namespace SchoolProject.Api.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class StudentsController : ControllerBase
     {
@@ -14,10 +15,18 @@ namespace SchoolProject.Api.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
+        [HttpGet(Router.Students.GetAll)]
         public async Task<IActionResult> GetAllStudents(CancellationToken cancellationToken)
         {
             var query = new GetStudentsQuery();
+            var response = await _mediator.Send(query, cancellationToken);
+            return StatusCode((int)response.StatusCode, response);
+        }
+
+        [HttpGet(Router.Students.GetById)]
+        public async Task<IActionResult> GetStudentById(int id, CancellationToken cancellationToken)
+        {
+            var query = new GetStudentByIdQuery(id);
             var response = await _mediator.Send(query, cancellationToken);
             return StatusCode((int)response.StatusCode, response);
         }
