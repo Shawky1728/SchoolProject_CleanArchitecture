@@ -13,7 +13,7 @@ namespace SchoolProject.Api.Controllers
 
         public StudentsController(IMediator mediator) : base(mediator)
         {
-            
+
         }
 
         [HttpGet(Router.Students.GetAll)]
@@ -33,10 +33,9 @@ namespace SchoolProject.Api.Controllers
         }
 
         [HttpPost(Router.Students.Add)]
-        public async Task<IActionResult> AddStudent(AddStudentRequest addStudentRequest, CancellationToken cancellationToken)
+        public async Task<IActionResult> AddStudent(AddStudentCommand addStudentCommand, CancellationToken cancellationToken)
         {
-            var query = new AddStudentCommand(addStudentRequest);
-            var response = await _mediator.Send(query, cancellationToken);
+            var response = await _mediator.Send(addStudentCommand, cancellationToken);
             return StatusCode((int)response.StatusCode, response);
         }
     }

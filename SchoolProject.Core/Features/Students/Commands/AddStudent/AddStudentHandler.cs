@@ -3,9 +3,6 @@ using MediatR;
 using SchoolProject.Core.Shared.ReponseHandling;
 using SchoolProject.Data.Entities;
 using SchoolProject.Service.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SchoolProject.Core.Features.Students.Commands.AddStudent
 {
@@ -19,11 +16,11 @@ namespace SchoolProject.Core.Features.Students.Commands.AddStudent
 
         public async Task<Response<AddStudentResponse>> Handle(AddStudentCommand request, CancellationToken cancellationToken)
         {
-            var student = request._addStudentRequest.Adapt<Student>();
+            var student = request.Adapt<Student>();
 
             var result = await _studentService.AddAsync(student);
 
-            if(result is null)
+            if (result is null)
             {
                 return UnProcessableEntity<AddStudentResponse>("Name Already Exists");
             }

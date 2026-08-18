@@ -30,7 +30,7 @@ namespace SchoolProject.Core.Mapping.Students
         {
 
             // mapping Student entity to GetStudentByIdResponse
-            config.NewConfig<AddStudentRequest, Student>()
+            config.NewConfig<AddStudentCommand, Student>()
                 .Map(dest => dest.DID, src => src.DepartmentId);
         }
     }
