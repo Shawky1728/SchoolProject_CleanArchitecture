@@ -11,6 +11,7 @@ namespace SchoolProject.Data.AppMetaData
             private const string Base = Root + "/students";
             public const string GetAll = Base;
             public const string GetById = Base + "/{id}";
+            public const string Add = Base;
         }
     }
 }

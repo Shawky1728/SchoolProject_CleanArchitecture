@@ -7,5 +7,6 @@ namespace SchoolProject.Service.Abstract
     {
         Task<List<Student>> GetAllStudentsAsync(CancellationToken cancellationToken = default);
         Task<Student?> GetStudentByIdAsync(int id, CancellationToken cancellationToken = default);
+        Task<Student> AddAsync(Student student);
     }
 }

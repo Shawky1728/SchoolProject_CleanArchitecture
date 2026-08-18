@@ -17,6 +17,8 @@ namespace SchoolProject.Service.Services
         {
             _studentRepository = studentRepository;
         }
+
+       
         #endregion
 
         #region Methods
@@ -33,6 +35,26 @@ namespace SchoolProject.Service.Services
                                      .Where(s => s.StudID == id)
                                      .FirstOrDefaultAsync(cancellationToken);
         }
+
+        public async Task<Student> AddAsync(Student student)
+        {
+            // check if name exist
+
+            var IsExist = _studentRepository.GetTableNoTracking().Where(i => i.Name == student.Name).FirstOrDefault();
+            if(IsExist is not null)
+            {
+                return null;
+            }
+
+            // check department
+
+            await _studentRepository.AddAsync(student);
+
+            return student;
+
+
+        }
+
         #endregion
     }
 }

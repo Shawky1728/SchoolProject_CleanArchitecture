@@ -115,5 +115,17 @@ namespace SchoolProject.Core.Shared.ReponseHandling
                 Message = message
             };
         }
+
+        public Response<T> UnProcessableEntity<T>(string message = null)
+        {
+            return new Response<T>()
+            {
+                StatusCode = System.Net.HttpStatusCode.UnprocessableEntity,
+                Succeeded = false,
+                Message = message == null ? "UnProcessable Entity" : message
+
+            };
+
+        }
     }
 }
