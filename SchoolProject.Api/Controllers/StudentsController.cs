@@ -1,5 +1,4 @@
-﻿using Mapster;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SchoolProject.Core.Features.Students.Commands.AddStudent;
 using SchoolProject.Core.Features.Students.Queries.GetStudentById;
@@ -9,12 +8,12 @@ using SchoolProject.Data.AppMetaData;
 namespace SchoolProject.Api.Controllers
 {
     [ApiController]
-    public class StudentsController : ControllerBase
+    public class StudentsController : BaseController
     {
-        private readonly IMediator _mediator;
-        public StudentsController(IMediator mediator)
+
+        public StudentsController(IMediator mediator) : base(mediator)
         {
-            _mediator = mediator;
+            
         }
 
         [HttpGet(Router.Students.GetAll)]
