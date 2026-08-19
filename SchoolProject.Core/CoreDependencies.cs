@@ -1,7 +1,9 @@
 ﻿using FluentValidation;
 using Mapster;
 using MapsterMapper;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using SchoolProject.Core.Behaviors;
 using System.Reflection;
 
 namespace SchoolProject.Core
@@ -21,8 +23,11 @@ namespace SchoolProject.Core
             config.Scan(Assembly.GetAssembly(typeof(CoreDependencies)));
             services.AddSingleton<IMapper>(new Mapper(config));
 
-            // register validators from the current assembly
-            services.AddValidatorsFromAssembly(Assembly.GetAssembly(typeof(CoreDependencies)));
+            // Get Validators
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+
 
             return services;
         }

@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using SchoolProject.Api.Middlewares;
 using SchoolProject.Core;
 using SchoolProject.Infrastructure;
 using SchoolProject.Infrastructure.Data;
@@ -50,6 +51,8 @@ namespace SchoolProject.Api
             }
 
             app.UseHttpsRedirection();
+
+            app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseAuthorization();
 
