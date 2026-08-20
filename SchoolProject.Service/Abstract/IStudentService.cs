@@ -7,6 +7,7 @@ namespace SchoolProject.Service.Abstract
     {
         Task<List<Student>> GetAllStudentsAsync(CancellationToken cancellationToken = default);
         Task<Student?> GetStudentByIdAsync(int id, CancellationToken cancellationToken = default);
+        Task<Student?> GetStudentByIdWithoutIncludesAsync(int id, CancellationToken cancellationToken = default);
         Task<Student> AddAsync(Student student);
         public Task<bool> UpdateAsync(Student student);
         Task<bool> IsNameExist(string name);

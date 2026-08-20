@@ -16,7 +16,7 @@ namespace SchoolProject.Core.Features.Students.Commands.UpdateStudent
 
         public async Task<Response<bool>> Handle(UpdateStudentCommand request, CancellationToken cancellationToken)
         {
-            var student = await _studentService.GetStudentByIdAsync(request.Id);
+            var student = await _studentService.GetStudentByIdWithoutIncludesAsync(request.Id, cancellationToken);
             if (student == null)
             {
                 return BadRequest<bool>("Student not found");

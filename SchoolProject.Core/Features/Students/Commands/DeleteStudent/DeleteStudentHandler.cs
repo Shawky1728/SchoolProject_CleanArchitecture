@@ -14,7 +14,7 @@ namespace SchoolProject.Core.Features.Students.Commands.DeleteStudent
         }
         public async Task<Response<bool>> Handle(DeleteStudentCommand request, CancellationToken cancellationToken)
         {
-            var student = await _studentService.GetStudentByIdAsync(request.Id, cancellationToken);
+            var student = await _studentService.GetStudentByIdWithoutIncludesAsync(request.Id, cancellationToken);
 
             if (student == null)
             {

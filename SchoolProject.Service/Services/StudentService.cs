@@ -36,6 +36,14 @@ namespace SchoolProject.Service.Services
                                      .FirstOrDefaultAsync(cancellationToken);
         }
 
+        public async Task<Student?> GetStudentByIdWithoutIncludesAsync(int id, CancellationToken cancellationToken = default)
+        {
+            return await _studentRepository.GetTableNoTracking()
+                                     .Where(s => s.StudID == id)
+                                     .FirstOrDefaultAsync(cancellationToken);
+        }
+
+
         public async Task<Student> AddAsync(Student student)
         {
             await _studentRepository.AddAsync(student);
