@@ -1,13 +1,14 @@
 ﻿using Mapster;
 using MediatR;
 using SchoolProject.Core.Shared.ReponseHandling;
+using SchoolProject.Core.Wrappers;
 using SchoolProject.Data.Entities;
 using SchoolProject.Service.Abstract;
 
 
 namespace SchoolProject.Core.Features.Students.Queries.GetStudents
 {
-    public class GetStudentsHandler :ResponseHandler, IRequestHandler<GetStudentsQuery, Response<List<GetStudentsResponse>>>
+    public class GetStudentsHandler : ResponseHandler, IRequestHandler<GetStudentsQuery, Response<PaginatedList<GetStudentsResponse>>>
     {
         #region Fields
         private readonly IStudentService _studentService;
@@ -22,11 +23,12 @@ namespace SchoolProject.Core.Features.Students.Queries.GetStudents
         #endregion
 
         #region Methods
-        public async Task<Response<List<GetStudentsResponse>>> Handle(GetStudentsQuery request, CancellationToken cancellationToken)
+        public async Task<Response<PaginatedList<GetStudentsResponse>>> Handle(GetStudentsQuery request, CancellationToken cancellationToken)
         {
-            var students = await _studentService.GetAllStudentsAsync();
-            var response = students.Adapt<List<GetStudentsResponse>>();
-            return Success(response, "Students retrieved successfully.");
+            var queryableStudents = _studentService.GetAllStudentsQueryable();
+            var PaginatedData = await PaginatedList<Student>.CreateAsync(queryableStudents, request.PageNumber, request.PageSize, cancellationToken);
+            var result = PaginatedData.Adapt<PaginatedList<GetStudentsResponse>>();
+            return Success(result, "Students retrieved successfully.");
         }
         #endregion
     }

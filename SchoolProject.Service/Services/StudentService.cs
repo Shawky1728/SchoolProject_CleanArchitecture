@@ -84,6 +84,12 @@ namespace SchoolProject.Service.Services
             }
         }
 
+        public IQueryable<Student> GetAllStudentsQueryable()
+        {
+            var students = _studentRepository.GetTableNoTracking().Include(i => i.Department).AsQueryable();
+            return students;
+        }
+
         #endregion
     }
 }
