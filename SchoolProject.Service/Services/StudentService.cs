@@ -22,11 +22,6 @@ namespace SchoolProject.Service.Services
         #endregion
 
         #region Methods
-        public Task<List<Student>> GetAllStudentsAsync(CancellationToken cancellationToken = default)
-        {
-            return _studentRepository.GetAllStudentsAsync(cancellationToken);
-
-        }
 
         public async Task<Student?> GetStudentByIdAsync(int id, CancellationToken cancellationToken = default)
         {
