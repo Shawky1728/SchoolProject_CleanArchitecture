@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SchoolProject.Core.Features.Students.Commands.AddStudent;
+using SchoolProject.Core.Features.Students.Commands.UpdateStudent;
 using SchoolProject.Core.Features.Students.Queries.GetStudentById;
 using SchoolProject.Core.Features.Students.Queries.GetStudents;
 using SchoolProject.Data.AppMetaData;
@@ -36,6 +37,13 @@ namespace SchoolProject.Api.Controllers
         public async Task<IActionResult> AddStudent(AddStudentCommand addStudentCommand, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(addStudentCommand, cancellationToken);
+            return StatusCode((int)response.StatusCode, response);
+        }
+
+        [HttpPut(Router.Students.Update)]
+        public async Task<IActionResult> UpdateStudent([FromBody] UpdateStudentCommand updateStudentCommand, CancellationToken cancellationToken)
+        {
+            var response = await _mediator.Send(updateStudentCommand, cancellationToken);
             return StatusCode((int)response.StatusCode, response);
         }
     }

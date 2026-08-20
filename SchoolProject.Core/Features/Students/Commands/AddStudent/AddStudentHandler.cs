@@ -18,12 +18,14 @@ namespace SchoolProject.Core.Features.Students.Commands.AddStudent
         {
             var student = request.Adapt<Student>();
 
+            var IsExist = await _studentService.IsNameExist(student.Name);
+            if (IsExist)
+            {
+                return BadRequest<AddStudentResponse>("Name Already Exists");
+            }
+
             var result = await _studentService.AddAsync(student);
 
-            if (result is null)
-            {
-                return UnProcessableEntity<AddStudentResponse>("Name Already Exists");
-            }
 
             var response = result.Adapt<AddStudentResponse>();
 

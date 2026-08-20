@@ -18,7 +18,7 @@ namespace SchoolProject.Service.Services
             _studentRepository = studentRepository;
         }
 
-       
+
         #endregion
 
         #region Methods
@@ -31,7 +31,7 @@ namespace SchoolProject.Service.Services
         public async Task<Student?> GetStudentByIdAsync(int id, CancellationToken cancellationToken = default)
         {
             return await _studentRepository.GetTableNoTracking()
-                                     .Include(i=>i.Department)
+                                     .Include(i => i.Department)
                                      .Where(s => s.StudID == id)
                                      .FirstOrDefaultAsync(cancellationToken);
         }
@@ -41,7 +41,7 @@ namespace SchoolProject.Service.Services
             // check if name exist
 
             var IsExist = _studentRepository.GetTableNoTracking().Where(i => i.Name == student.Name).FirstOrDefault();
-            if(IsExist is not null)
+            if (IsExist is not null)
             {
                 return null;
             }
@@ -53,6 +53,22 @@ namespace SchoolProject.Service.Services
             return student;
 
 
+        }
+
+        public async Task<bool> UpdateAsync(Student student)
+        {
+            await _studentRepository.UpdateAsync(student);
+            return true;
+        }
+
+        public async Task<bool> IsNameExist(string name)
+        {
+            var IsExist = await _studentRepository.GetTableNoTracking().Where(i => i.Name == name).FirstOrDefaultAsync();
+            if (IsExist is not null)
+            {
+                return true;
+            }
+            return false;
         }
 
         #endregion
