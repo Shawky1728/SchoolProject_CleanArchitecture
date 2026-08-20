@@ -38,20 +38,9 @@ namespace SchoolProject.Service.Services
 
         public async Task<Student> AddAsync(Student student)
         {
-            // check if name exist
-
-            var IsExist = _studentRepository.GetTableNoTracking().Where(i => i.Name == student.Name).FirstOrDefault();
-            if (IsExist is not null)
-            {
-                return null;
-            }
-
-            // check department
-
             await _studentRepository.AddAsync(student);
 
             return student;
-
 
         }
 
@@ -69,6 +58,22 @@ namespace SchoolProject.Service.Services
                 return true;
             }
             return false;
+        }
+
+        public async Task<bool> DeleteAsync(Student student, CancellationToken cancellationToken = default)
+        {
+            var transaction = _studentRepository.BeginTransaction();
+            try
+            {
+                await _studentRepository.DeleteAsync(student);
+                await transaction.CommitAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync();
+                return false;
+            }
         }
 
         #endregion

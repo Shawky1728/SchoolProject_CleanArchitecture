@@ -10,5 +10,6 @@ namespace SchoolProject.Service.Abstract
         Task<Student> AddAsync(Student student);
         public Task<bool> UpdateAsync(Student student);
         Task<bool> IsNameExist(string name);
+        Task<bool> DeleteAsync(Student student, CancellationToken cancellationToken = default);
     }
 }

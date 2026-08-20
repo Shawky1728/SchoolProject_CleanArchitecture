@@ -24,6 +24,8 @@ namespace SchoolProject.Core.Features.Students.Commands.AddStudent
                 return BadRequest<AddStudentResponse>("Name Already Exists");
             }
 
+            // check if the department exists
+
             var result = await _studentService.AddAsync(student);
 
 
