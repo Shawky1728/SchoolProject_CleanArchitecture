@@ -17,8 +17,8 @@ namespace SchoolProject.Core.Features.Students.Commands.UpdateStudent
                 .When(x => x.Address != null);
 
             RuleFor(x => x.Phone)
-                .MaximumLength(20)
-                .WithMessage("Phone must not exceed 20 characters.")
+               .Matches("^\\+?\\d{10,15}$")
+                .WithMessage("Phone must be a valid phone number with 10 to 15 digits, optionally starting with a '+'.")
                 .When(x => x.Phone != null);
 
             RuleFor(x => x.DepartmentId)
