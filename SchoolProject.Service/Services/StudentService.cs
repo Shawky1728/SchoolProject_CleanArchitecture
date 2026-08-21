@@ -79,9 +79,13 @@ namespace SchoolProject.Service.Services
             }
         }
 
-        public IQueryable<Student> GetAllStudentsQueryable()
+        public IQueryable<Student> GetAllStudentsQueryable(string? searchTerm = null)
         {
             var students = _studentRepository.GetTableNoTracking().Include(i => i.Department).AsQueryable();
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                students = students.Where(s => s.Name.Contains(searchTerm));
+            }
             return students;
         }
 
