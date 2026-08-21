@@ -1,6 +1,5 @@
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using SchoolProject.Api.Middlewares;
 using SchoolProject.Core;
 using SchoolProject.Infrastructure;
@@ -72,11 +71,7 @@ namespace SchoolProject.Api
 
             app.UseAuthorization();
 
-            #region Localization Middleware
-            var localizationOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
-
-            app.UseRequestLocalization(localizationOptions?.Value!);
-            #endregion
+            app.UseRequestLocalization();
 
             app.MapControllers();
 
