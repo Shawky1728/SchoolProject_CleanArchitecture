@@ -25,7 +25,7 @@ namespace SchoolProject.Core.Features.Students.Queries.GetStudents
         #region Methods
         public async Task<Response<PaginatedList<GetStudentsResponse>>> Handle(GetStudentsQuery request, CancellationToken cancellationToken)
         {
-            var queryableStudents = _studentService.GetAllStudentsQueryable(request.SearchTerm);
+            var queryableStudents = _studentService.GetAllStudentsQueryable(request.SearchTerm, request.OrderBy);
             var PaginatedData = await PaginatedList<Student>.CreateAsync(queryableStudents, request.PageNumber, request.PageSize, cancellationToken);
             var result = PaginatedData.Adapt<PaginatedList<GetStudentsResponse>>();
             return Success(result, "Students retrieved successfully.");

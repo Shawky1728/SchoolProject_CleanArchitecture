@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SchoolProject.Data.Entities;
+using SchoolProject.Data.Helper;
 using SchoolProject.Infrastructure.Abstract;
 using SchoolProject.Service.Abstract;
 
@@ -79,13 +80,33 @@ namespace SchoolProject.Service.Services
             }
         }
 
-        public IQueryable<Student> GetAllStudentsQueryable(string? searchTerm = null)
+        public IQueryable<Student> GetAllStudentsQueryable(string? searchTerm = null, StudentOrderEnum? orderBy = null)
         {
             var students = _studentRepository.GetTableNoTracking().Include(i => i.Department).AsQueryable();
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 students = students.Where(s => s.Name.Contains(searchTerm));
             }
+
+            if (orderBy.HasValue)
+            {
+                switch (orderBy.Value)
+                {
+                    case StudentOrderEnum.Id:
+                        students = students.OrderBy(s => s.StudID);
+                        break;
+                    case StudentOrderEnum.Name:
+                        students = students.OrderBy(s => s.Name);
+                        break;
+                    case StudentOrderEnum.Address:
+                        students = students.OrderBy(s => s.Address);
+                        break;
+                    case StudentOrderEnum.DepartmentName:
+                        students = students.OrderBy(s => s.Department.DName);
+                        break;
+                }
+            }
+
             return students;
         }
 

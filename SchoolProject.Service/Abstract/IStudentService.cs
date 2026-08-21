@@ -1,4 +1,5 @@
 ﻿using SchoolProject.Data.Entities;
+using SchoolProject.Data.Helper;
 
 
 namespace SchoolProject.Service.Abstract
@@ -11,6 +12,6 @@ namespace SchoolProject.Service.Abstract
         public Task<bool> UpdateAsync(Student student);
         Task<bool> IsNameExist(string name);
         Task<bool> DeleteAsync(Student student, CancellationToken cancellationToken = default);
-        public IQueryable<Student> GetAllStudentsQueryable(string? searchTerm = null);
+        public IQueryable<Student> GetAllStudentsQueryable(string? searchTerm = null, StudentOrderEnum? orderBy = null);
     }
 }

@@ -21,7 +21,7 @@ namespace SchoolProject.Api.Controllers
         [HttpGet(Router.Students.GetAll)]
         public async Task<IActionResult> GetAllStudents([FromQuery] GetStudentsRequestFilters filters, CancellationToken cancellationToken)
         {
-            var query = new GetStudentsQuery(filters.PageNumber, filters.PageSize, filters.SearchTerm);
+            var query = new GetStudentsQuery(filters.PageNumber, filters.PageSize, filters.SearchTerm, filters.OrderBy);
             var response = await _mediator.Send(query, cancellationToken);
             return StatusCode((int)response.StatusCode, response);
         }
