@@ -1,29 +1,31 @@
-﻿using FluentValidation;
+using FluentValidation;
+using Microsoft.Extensions.Localization;
+using SchoolProject.Core.Resources;
 
 namespace SchoolProject.Core.Features.Students.Commands.UpdateStudent
 {
     public class UpdateStudentValidator : AbstractValidator<UpdateStudentCommand>
     {
-        public UpdateStudentValidator()
+        public UpdateStudentValidator(IStringLocalizer<SharedResource> localizer)
         {
             RuleFor(x => x.Name)
                 .MaximumLength(50)
-                .WithMessage("Name must not exceed 50 characters.")
+                .WithMessage(localizer[SharedResourceKeys.NameMaxLength50])
                 .When(x => x.Name != null);
 
             RuleFor(x => x.Address)
                 .MaximumLength(100)
-                .WithMessage("Address must not exceed 100 characters.")
+                .WithMessage(localizer[SharedResourceKeys.AddressMaxLength100])
                 .When(x => x.Address != null);
 
             RuleFor(x => x.Phone)
                .Matches("^\\+?\\d{10,15}$")
-                .WithMessage("Phone must be a valid phone number with 10 to 15 digits, optionally starting with a '+'.")
+                .WithMessage(localizer[SharedResourceKeys.PhoneFormat])
                 .When(x => x.Phone != null);
 
             RuleFor(x => x.DepartmentId)
                 .GreaterThan(0)
-                .WithMessage("DepartmentId must be greater than 0.")
+                .WithMessage(localizer[SharedResourceKeys.DepartmentIdRange])
                 .When(x => x.DepartmentId.HasValue);
         }
     }

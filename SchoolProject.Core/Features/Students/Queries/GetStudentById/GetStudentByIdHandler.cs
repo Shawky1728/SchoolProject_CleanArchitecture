@@ -1,6 +1,8 @@
-﻿using Mapster;
+using Mapster;
 using MediatR;
+using Microsoft.Extensions.Localization;
 using SchoolProject.Core.Features.Students.Queries.GetStudents;
+using SchoolProject.Core.Resources;
 using SchoolProject.Core.Shared.ReponseHandling;
 using SchoolProject.Service.Abstract;
 
@@ -11,7 +13,7 @@ namespace SchoolProject.Core.Features.Students.Queries.GetStudentById
     {
         private readonly IStudentService _studentService;
 
-        public GetStudentByIdHandler(IStudentService studentService)
+        public GetStudentByIdHandler(IStudentService studentService, IStringLocalizer<SharedResource> localizer) : base(localizer)
         {
             _studentService = studentService;
         }
@@ -22,12 +24,12 @@ namespace SchoolProject.Core.Features.Students.Queries.GetStudentById
 
             if(student == null)
             {
-                return NotFound<GetStudentByIdResponse>("Student not found.")!;
+                return NotFound<GetStudentByIdResponse>(_localizer[SharedResourceKeys.StudentNotFound])!;
             }
 
             var response = student.Adapt<GetStudentByIdResponse>();
 
-            return Success(response, "Student retrieved successfully.");
+            return Success(response, _localizer[SharedResourceKeys.StudentRetrieved].Value);
 
         }
     }

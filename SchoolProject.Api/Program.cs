@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using SchoolProject.Api.Middlewares;
 using SchoolProject.Core;
 using SchoolProject.Infrastructure;
@@ -41,6 +42,21 @@ namespace SchoolProject.Api
 
             #endregion
 
+            #region Localization
+
+            builder.Services.AddLocalization(options => options.ResourcesPath = "");
+
+            builder.Services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[] { "en", "ar" };
+
+                options.SetDefaultCulture("en")
+                    .AddSupportedCultures(supportedCultures)
+                    .AddSupportedUICultures(supportedCultures);
+            });
+
+            #endregion
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -56,6 +72,11 @@ namespace SchoolProject.Api
 
             app.UseAuthorization();
 
+            #region Localization Middleware
+            var localizationOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
+
+            app.UseRequestLocalization(localizationOptions?.Value!);
+            #endregion
 
             app.MapControllers();
 

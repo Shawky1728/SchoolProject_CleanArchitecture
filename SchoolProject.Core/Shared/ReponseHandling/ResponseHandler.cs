@@ -1,45 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
+using Microsoft.Extensions.Localization;
+using SchoolProject.Core.Resources;
 using System.Net;
-using System.Text;
 
 namespace SchoolProject.Core.Shared.ReponseHandling
 {
     public class ResponseHandler
     {
+        protected readonly IStringLocalizer<SharedResource> _localizer;
 
-        public ResponseHandler()
+        public ResponseHandler(IStringLocalizer<SharedResource> localizer)
         {
+            _localizer = localizer;
         }
 
-        public Response<T> Deleted<T>(string Message = null)
+        public Response<T> Deleted<T>(string message = null)
         {
             return new Response<T>()
             {
                 StatusCode = HttpStatusCode.OK,
                 Succeeded = true,
-                Message = Message
+                Message = message ?? _localizer["DeletedSuccessfully"]
             };
         }
 
-        public Response<T> Success<T>(T entity, string message)
+        public Response<T> Success<T>(T entity, string message = null)
         {
             return new Response<T>()
             {
                 Data = entity,
                 StatusCode = HttpStatusCode.OK,
                 Succeeded = true,
-                Message = message
+                Message = message ?? _localizer["Success"]
             };
         }
 
-        public Response<T> Unauthorized<T>(string Message = null)
+        public Response<T> Unauthorized<T>(string message = null)
         {
             return new Response<T>()
             {
                 StatusCode = HttpStatusCode.Unauthorized,
                 Succeeded = false,
-                Message = Message
+                Message = message ?? _localizer["Unauthorized"]
             };
         }
 
@@ -49,20 +50,19 @@ namespace SchoolProject.Core.Shared.ReponseHandling
             {
                 StatusCode = HttpStatusCode.Forbidden,
                 Succeeded = false,
-                Message = message
+                Message = message ?? _localizer["Forbidden"]
             };
         }
 
-        public Response<T> BadRequest<T>(string Message = null)
+        public Response<T> BadRequest<T>(string message = null)
         {
             return new Response<T>()
             {
                 StatusCode = HttpStatusCode.BadRequest,
                 Succeeded = false,
-                Message = Message
+                Message = message ?? _localizer["BadRequest"]
             };
         }
-
 
         public Response<T> NotFound<T>(string message = null)
         {
@@ -70,7 +70,7 @@ namespace SchoolProject.Core.Shared.ReponseHandling
             {
                 StatusCode = HttpStatusCode.NotFound,
                 Succeeded = false,
-                Message = message
+                Message = message ?? _localizer["NotFound"]
             };
         }
 
@@ -81,38 +81,17 @@ namespace SchoolProject.Core.Shared.ReponseHandling
                 Data = entity,
                 StatusCode = HttpStatusCode.Created,
                 Succeeded = true,
-                Message = message
+                Message = message ?? _localizer["CreatedSuccessfully"]
             };
         }
 
-        public Response<T> ServerError<T>(string message = "An unexpected error occurred.")
+        public Response<T> ServerError<T>(string message = null)
         {
             return new Response<T>
             {
                 StatusCode = HttpStatusCode.InternalServerError,
                 Succeeded = false,
-                Message = message,
-            };
-        }
-
-        public Response<T> InternalServerError<T>(string message = null)
-        {
-            return new Response<T>()
-            {
-                StatusCode = HttpStatusCode.InternalServerError,
-                Succeeded = false,
-                Message = message
-            };
-        }
-
-        public Response<T> Found<T>(T entity, string message = null)
-        {
-            return new Response<T>()
-            {
-                Data = entity,
-                StatusCode = HttpStatusCode.Found,
-                Succeeded = true,
-                Message = message
+                Message = message ?? _localizer["ServerError"]
             };
         }
 
@@ -120,12 +99,10 @@ namespace SchoolProject.Core.Shared.ReponseHandling
         {
             return new Response<T>()
             {
-                StatusCode = System.Net.HttpStatusCode.UnprocessableEntity,
+                StatusCode = HttpStatusCode.UnprocessableEntity,
                 Succeeded = false,
-                Message = message == null ? "UnProcessable Entity" : message
-
+                Message = message ?? _localizer["UnProcessableEntity"]
             };
-
         }
     }
 }

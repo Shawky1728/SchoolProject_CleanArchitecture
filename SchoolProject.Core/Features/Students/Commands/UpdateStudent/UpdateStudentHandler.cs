@@ -1,5 +1,7 @@
-﻿using Mapster;
+using Mapster;
 using MediatR;
+using Microsoft.Extensions.Localization;
+using SchoolProject.Core.Resources;
 using SchoolProject.Core.Shared.ReponseHandling;
 using SchoolProject.Service.Abstract;
 
@@ -9,7 +11,7 @@ namespace SchoolProject.Core.Features.Students.Commands.UpdateStudent
     {
         private readonly IStudentService _studentService;
 
-        public UpdateStudentHandler(IStudentService studentService)
+        public UpdateStudentHandler(IStudentService studentService, IStringLocalizer<SharedResource> localizer) : base(localizer)
         {
             _studentService = studentService;
         }
@@ -19,7 +21,7 @@ namespace SchoolProject.Core.Features.Students.Commands.UpdateStudent
             var student = await _studentService.GetStudentByIdWithoutIncludesAsync(request.Id, cancellationToken);
             if (student == null)
             {
-                return BadRequest<bool>("Student not found");
+                return BadRequest<bool>(_localizer[SharedResourceKeys.StudentNotFound])!;
             }
 
             request.Adapt(student);
@@ -27,10 +29,10 @@ namespace SchoolProject.Core.Features.Students.Commands.UpdateStudent
             var result = await _studentService.UpdateAsync(student);
             if (!result)
             {
-                return BadRequest<bool>("Failed to update student");
+                return BadRequest<bool>(_localizer[SharedResourceKeys.FailedToUpdateStudent])!;
             }
 
-            return Success(true, "Student updated successfully");
+            return Success(true, _localizer[SharedResourceKeys.StudentUpdated].Value);
         }
     }
 }

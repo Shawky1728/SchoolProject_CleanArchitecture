@@ -1,4 +1,6 @@
-﻿using MediatR;
+using MediatR;
+using Microsoft.Extensions.Localization;
+using SchoolProject.Core.Resources;
 using SchoolProject.Core.Shared.ReponseHandling;
 using SchoolProject.Service.Abstract;
 
@@ -8,7 +10,7 @@ namespace SchoolProject.Core.Features.Students.Commands.DeleteStudent
     {
         private readonly IStudentService _studentService;
 
-        public DeleteStudentHandler(IStudentService studentService)
+        public DeleteStudentHandler(IStudentService studentService, IStringLocalizer<SharedResource> localizer) : base(localizer)
         {
             _studentService = studentService;
         }
@@ -19,14 +21,14 @@ namespace SchoolProject.Core.Features.Students.Commands.DeleteStudent
             if (student == null)
             {
 
-                return NotFound<bool>("Student not found.");
+                return NotFound<bool>(_localizer[SharedResourceKeys.StudentNotFound])!;
             }
             var result = await _studentService.DeleteAsync(student, cancellationToken);
             if (result)
             {
-                return Success(true, "Student deleted successfully.");
+                return Success(true, _localizer[SharedResourceKeys.StudentDeleted].Value);
             }
-            return BadRequest<bool>("Failed to delete student.");
+            return BadRequest<bool>(_localizer[SharedResourceKeys.FailedToDeleteStudent])!;
         }
     }
 }

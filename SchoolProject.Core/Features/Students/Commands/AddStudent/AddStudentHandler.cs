@@ -1,5 +1,7 @@
-﻿using Mapster;
+using Mapster;
 using MediatR;
+using Microsoft.Extensions.Localization;
+using SchoolProject.Core.Resources;
 using SchoolProject.Core.Shared.ReponseHandling;
 using SchoolProject.Data.Entities;
 using SchoolProject.Service.Abstract;
@@ -9,7 +11,7 @@ namespace SchoolProject.Core.Features.Students.Commands.AddStudent
     public class AddStudentHandler : ResponseHandler, IRequestHandler<AddStudentCommand, Response<AddStudentResponse>>
     {
         private readonly IStudentService _studentService;
-        public AddStudentHandler(IStudentService studentService)
+        public AddStudentHandler(IStudentService studentService, IStringLocalizer<SharedResource> localizer) : base(localizer)
         {
             _studentService = studentService;
         }
@@ -21,7 +23,7 @@ namespace SchoolProject.Core.Features.Students.Commands.AddStudent
             var IsExist = await _studentService.IsNameExist(student.Name);
             if (IsExist)
             {
-                return BadRequest<AddStudentResponse>("Name Already Exists");
+                return BadRequest<AddStudentResponse>(_localizer[SharedResourceKeys.NameAlreadyExists])!;
             }
 
             // check if the department exists
@@ -31,7 +33,7 @@ namespace SchoolProject.Core.Features.Students.Commands.AddStudent
 
             var response = result.Adapt<AddStudentResponse>();
 
-            return Created(response, "Student Added Successfully");
+            return Created(response, _localizer[SharedResourceKeys.StudentAdded].Value);
         }
     }
 }

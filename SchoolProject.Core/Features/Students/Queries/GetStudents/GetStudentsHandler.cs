@@ -1,5 +1,7 @@
-﻿using Mapster;
+using Mapster;
 using MediatR;
+using Microsoft.Extensions.Localization;
+using SchoolProject.Core.Resources;
 using SchoolProject.Core.Shared.ReponseHandling;
 using SchoolProject.Core.Wrappers;
 using SchoolProject.Data.Entities;
@@ -16,7 +18,7 @@ namespace SchoolProject.Core.Features.Students.Queries.GetStudents
         #endregion
 
         #region constructor
-        public GetStudentsHandler(IStudentService studentService)
+        public GetStudentsHandler(IStudentService studentService, IStringLocalizer<SharedResource> localizer) : base(localizer)
         {
             _studentService = studentService;
         }
@@ -28,7 +30,7 @@ namespace SchoolProject.Core.Features.Students.Queries.GetStudents
             var queryableStudents = _studentService.GetAllStudentsQueryable(request.SearchTerm, request.OrderBy);
             var PaginatedData = await PaginatedList<Student>.CreateAsync(queryableStudents, request.PageNumber, request.PageSize, cancellationToken);
             var result = PaginatedData.Adapt<PaginatedList<GetStudentsResponse>>();
-            return Success(result, "Students retrieved successfully.");
+            return Success(result, _localizer[SharedResourceKeys.StudentsRetrieved].Value);
         }
         #endregion
     }
