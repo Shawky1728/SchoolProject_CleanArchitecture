@@ -34,7 +34,9 @@ namespace SchoolProject.Core.Mapping.Students
 
             // mapping Student entity to GetStudentByIdResponse
             config.NewConfig<AddStudentCommand, Student>()
-                .Map(dest => dest.DID, src => src.DepartmentId);
+                .Map(dest => dest.DID, src => src.DepartmentId)
+                .Map(dest => dest.NameEn, src => src.NameEn)
+                .Map(dest => dest.NameAr, src => src.NameAr);
 
             config.NewConfig<UpdateStudentCommand, Student>()
                 .IgnoreNullValues(true)
@@ -45,6 +47,9 @@ namespace SchoolProject.Core.Mapping.Students
                 .Map(dest => dest.Address, src => src.Address, srcCmd => !string.IsNullOrEmpty(srcCmd.Address))
                 .Map(dest => dest.Phone, src => src.Phone, srcCmd => !string.IsNullOrEmpty(srcCmd.Phone));
 
+
+            config.NewConfig<Student, AddStudentResponse>()
+                .Map(dest => dest.Name, src => src.GetLocalizedValue(src.NameAr, src.NameEn));
 
         }
     }
