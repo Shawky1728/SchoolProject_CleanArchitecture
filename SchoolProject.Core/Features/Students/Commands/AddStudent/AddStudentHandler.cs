@@ -20,7 +20,7 @@ namespace SchoolProject.Core.Features.Students.Commands.AddStudent
         {
             var student = request.Adapt<Student>();
 
-            var IsExist = await _studentService.IsNameExist(student.Name);
+            var IsExist = await _studentService.IsNameExist(student.NameEn);
             if (IsExist)
             {
                 return BadRequest<AddStudentResponse>(_localizer[SharedResourceKeys.NameAlreadyExists])!;

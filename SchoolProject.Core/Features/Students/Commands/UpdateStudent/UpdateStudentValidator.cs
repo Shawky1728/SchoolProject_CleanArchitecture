@@ -8,10 +8,15 @@ namespace SchoolProject.Core.Features.Students.Commands.UpdateStudent
     {
         public UpdateStudentValidator(IStringLocalizer<SharedResource> localizer)
         {
-            RuleFor(x => x.Name)
+            RuleFor(x => x.NameAr)
                 .MaximumLength(50)
                 .WithMessage(localizer[SharedResourceKeys.NameMaxLength50])
-                .When(x => x.Name != null);
+                .When(x => x.NameAr != null);
+
+            RuleFor(x => x.NameEn)
+                .MaximumLength(50)
+                .WithMessage(localizer[SharedResourceKeys.NameMaxLength50])
+                .When(x => x.NameEn != null);
 
             RuleFor(x => x.Address)
                 .MaximumLength(100)

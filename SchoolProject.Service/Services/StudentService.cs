@@ -56,7 +56,7 @@ namespace SchoolProject.Service.Services
 
         public async Task<bool> IsNameExist(string name)
         {
-            var IsExist = await _studentRepository.GetTableNoTracking().Where(i => i.Name == name).FirstOrDefaultAsync();
+            var IsExist = await _studentRepository.GetTableNoTracking().Where(i => i.NameEn == name).FirstOrDefaultAsync();
             if (IsExist is not null)
             {
                 return true;
@@ -85,7 +85,7 @@ namespace SchoolProject.Service.Services
             var students = _studentRepository.GetTableNoTracking().Include(i => i.Department).AsQueryable();
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                students = students.Where(s => s.Name.Contains(searchTerm));
+                students = students.Where(s => s.NameEn.Contains(searchTerm));
             }
 
             if (orderBy.HasValue)
@@ -96,13 +96,13 @@ namespace SchoolProject.Service.Services
                         students = students.OrderBy(s => s.StudID);
                         break;
                     case StudentOrderEnum.Name:
-                        students = students.OrderBy(s => s.Name);
+                        students = students.OrderBy(s => s.GetLocalizedValue(s.NameAr, s.NameEn));
                         break;
                     case StudentOrderEnum.Address:
                         students = students.OrderBy(s => s.Address);
                         break;
                     case StudentOrderEnum.DepartmentName:
-                        students = students.OrderBy(s => s.Department.DName);
+                        students = students.OrderBy(s => s.GetLocalizedValue(s.Department.DNameAr, s.Department.DNameEn));
                         break;
                 }
             }

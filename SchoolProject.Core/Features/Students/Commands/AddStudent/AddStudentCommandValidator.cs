@@ -11,7 +11,11 @@ namespace SchoolProject.Core.Features.Students.Commands.AddStudent
         {
             this.localizer = localizer;
 
-            RuleFor(x => x.Name)
+            RuleFor(x => x.NameAr)
+                .NotEmpty().WithMessage(localizer[SharedResourceKeys.RequiredField])
+                .MaximumLength(50).WithMessage(localizer[SharedResourceKeys.NameMaxLength50]);
+
+            RuleFor(x => x.NameEn)
                 .NotEmpty().WithMessage(localizer[SharedResourceKeys.RequiredField])
                 .MaximumLength(50).WithMessage(localizer[SharedResourceKeys.NameMaxLength50]);
 

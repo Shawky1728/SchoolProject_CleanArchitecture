@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SchoolProject.Data.Shared;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace SchoolProject.Data.Entities
 {
-    public partial class Department
+    public partial class Department : LocalizableEntity
     {
         public Department()
         {
@@ -15,7 +13,9 @@ namespace SchoolProject.Data.Entities
         [Key]
         public int DID { get; set; }
         [StringLength(500)]
-        public string DName { get; set; }
+        public string DNameAr { get; set; }
+        [StringLength(500)]
+        public string DNameEn { get; set; }
         public virtual ICollection<Student> Students { get; set; }
         public virtual ICollection<DepartmetSubject> DepartmentSubjects { get; set; }
     }
