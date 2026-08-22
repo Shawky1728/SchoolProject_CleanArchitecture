@@ -10,7 +10,7 @@ namespace SchoolProject.Service.Abstract
         Task<Student?> GetStudentByIdWithoutIncludesAsync(int id, CancellationToken cancellationToken = default);
         Task<Student> AddAsync(Student student);
         public Task<bool> UpdateAsync(Student student);
-        Task<bool> IsNameExist(string name);
+        Task<bool> IsNameExist(string nameAr, string nameEn);
         Task<bool> DeleteAsync(Student student, CancellationToken cancellationToken = default);
         public IQueryable<Student> GetAllStudentsQueryable(string? searchTerm = null, StudentOrderEnum? orderBy = null);
     }

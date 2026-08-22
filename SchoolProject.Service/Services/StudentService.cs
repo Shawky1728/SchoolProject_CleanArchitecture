@@ -54,9 +54,9 @@ namespace SchoolProject.Service.Services
             return true;
         }
 
-        public async Task<bool> IsNameExist(string name)
+        public async Task<bool> IsNameExist(string nameAr, string nameEn)
         {
-            var IsExist = await _studentRepository.GetTableNoTracking().Where(i => i.NameEn == name).FirstOrDefaultAsync();
+            var IsExist = await _studentRepository.GetTableNoTracking().Where(i => i.NameAr == nameAr || i.NameEn == nameEn).FirstOrDefaultAsync();
             if (IsExist is not null)
             {
                 return true;
