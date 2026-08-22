@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SchoolProject.Data.Entities;
 using SchoolProject.Data.Helper;
 using SchoolProject.Infrastructure.Abstract;
@@ -82,10 +82,12 @@ namespace SchoolProject.Service.Services
 
         public IQueryable<Student> GetAllStudentsQueryable(string? searchTerm = null, StudentOrderEnum? orderBy = null)
         {
+            var isArabic = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName.ToLower() == "ar";
+
             var students = _studentRepository.GetTableNoTracking().Include(i => i.Department).AsQueryable();
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                students = students.Where(s => s.NameEn.Contains(searchTerm));
+                students = isArabic ? students.Where(s => s.NameAr.Contains(searchTerm)) : students.Where(s => s.NameEn.Contains(searchTerm));
             }
 
             if (orderBy.HasValue)
@@ -96,13 +98,17 @@ namespace SchoolProject.Service.Services
                         students = students.OrderBy(s => s.StudID);
                         break;
                     case StudentOrderEnum.Name:
-                        students = students.OrderBy(s => s.GetLocalizedValue(s.NameAr, s.NameEn));
+                        students = isArabic
+                            ? students.OrderBy(s => s.NameAr)
+                            : students.OrderBy(s => s.NameEn);
                         break;
                     case StudentOrderEnum.Address:
                         students = students.OrderBy(s => s.Address);
                         break;
                     case StudentOrderEnum.DepartmentName:
-                        students = students.OrderBy(s => s.GetLocalizedValue(s.Department.DNameAr, s.Department.DNameEn));
+                        students = isArabic
+                            ? students.OrderBy(s => s.Department.DNameAr)
+                            : students.OrderBy(s => s.Department.DNameEn);
                         break;
                 }
             }
