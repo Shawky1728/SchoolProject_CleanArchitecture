@@ -5,7 +5,7 @@
 namespace SchoolProject.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class addConfiguration : Migration
+    public partial class AddConfigurations : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -138,7 +138,8 @@ namespace SchoolProject.Infrastructure.Migrations
                 table: "Departments",
                 column: "ManagerId",
                 principalTable: "Instructors",
-                principalColumn: "InsId");
+                principalColumn: "InsId",
+                onDelete: ReferentialAction.Restrict);
         }
 
         /// <inheritdoc />

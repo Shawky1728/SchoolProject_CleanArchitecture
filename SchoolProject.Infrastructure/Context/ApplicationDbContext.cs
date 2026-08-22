@@ -1,5 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SchoolProject.Data.Entities;
+using SchoolProject.Data.Configurations;
 
 namespace SchoolProject.Infrastructure.Data
 {
@@ -25,26 +26,7 @@ namespace SchoolProject.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DepartmetSubject>()
-                .HasKey(ds => new { ds.DID, ds.SubID });
-
-            modelBuilder.Entity<Ins_Subject>()
-                .HasKey(isub => new { isub.InsId, isub.SubId });
-
-            modelBuilder.Entity<StudentSubject>()
-                .HasKey(ss => new { ss.StudID, ss.SubID });
-
-            modelBuilder.Entity<Instructor>()
-                .HasOne(i => i.Supervisor)
-                .WithMany(i => i.SupervisedInstructors)
-                .HasForeignKey(i => i.SupervisorId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Instructor>()
-                .HasOne(i => i.Department)
-                .WithMany(d => d.Instructors)
-                .HasForeignKey(i => i.DID)
-                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(StudentConfig).Assembly);
 
             base.OnModelCreating(modelBuilder);
         }

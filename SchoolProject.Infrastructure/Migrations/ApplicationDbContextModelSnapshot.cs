@@ -210,7 +210,8 @@ namespace SchoolProject.Infrastructure.Migrations
                 {
                     b.HasOne("SchoolProject.Data.Entities.Instructor", "Manager")
                         .WithOne("ManagedDepartment")
-                        .HasForeignKey("SchoolProject.Data.Entities.Department", "ManagerId");
+                        .HasForeignKey("SchoolProject.Data.Entities.Department", "ManagerId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Manager");
                 });

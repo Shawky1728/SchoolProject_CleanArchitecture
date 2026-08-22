@@ -12,8 +12,8 @@ using SchoolProject.Infrastructure.Data;
 namespace SchoolProject.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260822153217_addConfiguration")]
-    partial class addConfiguration
+    [Migration("20260822190750_AddConfigurations")]
+    partial class AddConfigurations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -213,7 +213,8 @@ namespace SchoolProject.Infrastructure.Migrations
                 {
                     b.HasOne("SchoolProject.Data.Entities.Instructor", "Manager")
                         .WithOne("ManagedDepartment")
-                        .HasForeignKey("SchoolProject.Data.Entities.Department", "ManagerId");
+                        .HasForeignKey("SchoolProject.Data.Entities.Department", "ManagerId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Manager");
                 });
