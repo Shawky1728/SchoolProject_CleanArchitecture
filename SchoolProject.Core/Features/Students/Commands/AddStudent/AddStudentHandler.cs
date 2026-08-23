@@ -11,9 +11,14 @@ namespace SchoolProject.Core.Features.Students.Commands.AddStudent
     public class AddStudentHandler : ResponseHandler, IRequestHandler<AddStudentCommand, Response<AddStudentResponse>>
     {
         private readonly IStudentService _studentService;
-        public AddStudentHandler(IStudentService studentService, IStringLocalizer<SharedResource> localizer) : base(localizer)
+        private readonly IDepartmentService _departmentService;
+        public AddStudentHandler(
+            IStudentService studentService,
+            IDepartmentService departmentService,
+            IStringLocalizer<SharedResource> localizer) : base(localizer)
         {
             _studentService = studentService;
+            _departmentService = departmentService;
         }
 
         public async Task<Response<AddStudentResponse>> Handle(AddStudentCommand request, CancellationToken cancellationToken)
@@ -27,6 +32,11 @@ namespace SchoolProject.Core.Features.Students.Commands.AddStudent
             }
 
             // check if the department exists
+            var isDepartmentExists = await _departmentService.IsDepartmentExists(student?.DID!.Value ?? 0);
+            if (!isDepartmentExists)
+            {
+                return BadRequest<AddStudentResponse>(_localizer[SharedResourceKeys.DepartmentNotFound])!;
+            }
 
             var result = await _studentService.AddAsync(student);
 
