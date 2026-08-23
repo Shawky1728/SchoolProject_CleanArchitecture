@@ -15,5 +15,11 @@ namespace SchoolProject.Data.AppMetaData
             public const string Update = Base;
             public const string Delete = Base + "/{id}";
         }
+
+        public static class Departments
+        {
+            private const string Base = Root + "/departments";
+            public const string GetById = Base + "/{id}";
+        }
     }
 }

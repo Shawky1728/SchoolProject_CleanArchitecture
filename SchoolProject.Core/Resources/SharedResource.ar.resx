@@ -186,4 +186,28 @@
   <data name="StudentAdded" xml:space="preserve">
     <value>تم إضافة الطالب بنجاح</value>
   </data>
+  <data name="DepartmentNotFound" xml:space="preserve">
+    <value>القسم غير موجود</value>
+  </data>
+  <data name="DepartmentRetrieved" xml:space="preserve">
+    <value>تم جلب بيانات القسم بنجاح</value>
+  </data>
+  <data name="DepartmentsRetrieved" xml:space="preserve">
+    <value>تم جلب بيانات الأقسام بنجاح</value>
+  </data>
+  <data name="FailedToUpdateDepartment" xml:space="preserve">
+    <value>فشل تحديث بيانات القسم</value>
+  </data>
+  <data name="DepartmentUpdated" xml:space="preserve">
+    <value>تم تحديث بيانات القسم بنجاح</value>
+  </data>
+  <data name="DepartmentDeleted" xml:space="preserve">
+    <value>تم حذف القسم بنجاح</value>
+  </data>
+  <data name="FailedToDeleteDepartment" xml:space="preserve">
+    <value>فشل حذف القسم</value>
+  </data>
+  <data name="DepartmentAdded" xml:space="preserve">
+    <value>تم إضافة القسم بنجاح</value>
+  </data>
 </root>

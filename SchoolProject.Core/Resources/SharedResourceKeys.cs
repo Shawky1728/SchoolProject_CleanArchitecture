@@ -32,5 +32,15 @@ namespace SchoolProject.Core.Resources
         public const string FailedToDeleteStudent = "FailedToDeleteStudent";
         public const string NameAlreadyExists = "NameAlreadyExists";
         public const string StudentAdded = "StudentAdded";
+
+        // department related messages
+        public const string DepartmentNotFound = "DepartmentNotFound";
+        public const string DepartmentRetrieved = "DepartmentRetrieved";
+        public const string DepartmentsRetrieved = "DepartmentsRetrieved";
+        public const string FailedToUpdateDepartment = "FailedToUpdateDepartment";
+        public const string DepartmentUpdated = "DepartmentUpdated";
+        public const string DepartmentDeleted = "DepartmentDeleted";
+        public const string FailedToDeleteDepartment = "FailedToDeleteDepartment";
+        public const string DepartmentAdded = "DepartmentAdded";
     }
 }

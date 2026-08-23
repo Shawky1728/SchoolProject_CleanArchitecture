@@ -9,6 +9,7 @@ namespace SchoolProject.Service
         public static IServiceCollection AddServiceDependencies(this IServiceCollection services)
         {
             services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
 
             return services;
         }

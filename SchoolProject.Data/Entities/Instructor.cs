@@ -1,6 +1,8 @@
+using SchoolProject.Data.Shared;
+
 namespace SchoolProject.Data.Entities
 {
-    public class Instructor
+    public class Instructor : LocalizableEntity
     {
         public Instructor()
         {

@@ -186,4 +186,28 @@
   <data name="StudentAdded" xml:space="preserve">
     <value>Student Added Successfully.</value>
   </data>
+  <data name="DepartmentNotFound" xml:space="preserve">
+    <value>Department not found.</value>
+  </data>
+  <data name="DepartmentRetrieved" xml:space="preserve">
+    <value>Department retrieved successfully.</value>
+  </data>
+  <data name="DepartmentsRetrieved" xml:space="preserve">
+    <value>Departments retrieved successfully.</value>
+  </data>
+  <data name="FailedToUpdateDepartment" xml:space="preserve">
+    <value>Failed to update department.</value>
+  </data>
+  <data name="DepartmentUpdated" xml:space="preserve">
+    <value>Department updated successfully.</value>
+  </data>
+  <data name="DepartmentDeleted" xml:space="preserve">
+    <value>Department deleted successfully.</value>
+  </data>
+  <data name="FailedToDeleteDepartment" xml:space="preserve">
+    <value>Failed to delete department.</value>
+  </data>
+  <data name="DepartmentAdded" xml:space="preserve">
+    <value>Department added successfully.</value>
+  </data>
 </root>
