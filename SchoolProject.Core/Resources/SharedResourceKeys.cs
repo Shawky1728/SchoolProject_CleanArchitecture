@@ -21,6 +21,11 @@ namespace SchoolProject.Core.Resources
         public const string AddressMaxLength100 = "AddressMaxLength100";
         public const string PhoneFormat = "PhoneFormat";
         public const string DepartmentIdRange = "DepartmentIdRange";
+        public const string CityMaxLength50 = "CityMaxLength50";
+        public const string CountryMaxLength50 = "CountryMaxLength50";
+        public const string InvalidEmailFormat = "InvalidEmailFormat";
+        public const string PasswordComplexity = "PasswordComplexity";
+        public const string EmailExists = "EmailExists";
 
         // student related messages
         public const string StudentNotFound = "StudentNotFound";
@@ -42,5 +47,16 @@ namespace SchoolProject.Core.Resources
         public const string DepartmentDeleted = "DepartmentDeleted";
         public const string FailedToDeleteDepartment = "FailedToDeleteDepartment";
         public const string DepartmentAdded = "DepartmentAdded";
+
+        // user related messages
+        public const string UserNotFound = "UserNotFound";
+        public const string UserRetrieved = "UserRetrieved";
+        public const string UsersRetrieved = "UsersRetrieved";
+        public const string FailedToUpdateUser = "FailedToUpdateUser";
+        public const string UserUpdated = "UserUpdated";
+        public const string UserDeleted = "UserDeleted";
+        public const string FailedToDeleteUser = "FailedToDeleteUser";
+        public const string UserAdded = "UserAdded";
+        public const string FailedToAddUser = "FailedToAddUser";
     }
 }

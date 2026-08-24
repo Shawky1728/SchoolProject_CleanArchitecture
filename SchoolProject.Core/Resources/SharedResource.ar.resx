@@ -210,4 +210,46 @@
   <data name="DepartmentAdded" xml:space="preserve">
     <value>تم إضافة القسم بنجاح</value>
   </data>
+  <data name="CityMaxLength50" xml:space="preserve">
+    <value>المدينه لا يمكن ان تتجاوز 50 حرفا</value>
+  </data>
+  <data name="CountryMaxLength50" xml:space="preserve">
+    <value>الدوله لا يمكن لن تتجاوز 50 حرفا</value>
+  </data>
+  <data name="InvalidEmailFormat" xml:space="preserve">
+    <value>ايميل غير صالح</value>
+  </data>
+  <data name="PasswordComplexity" xml:space="preserve">
+    <value>كلمه المرور يجب ان تكون اقل شي 8 حروف وتحتوي علي ارقام واحرف</value>
+  </data>
+  <data name="EmailExists" xml:space="preserve">
+    <value>الايميل موجود بالفعل</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>المستخدم غير موجود</value>
+  </data>
+  <data name="UserRetrieved" xml:space="preserve">
+    <value>تم جلب بيانات المستخدم بنجاح</value>
+  </data>
+  <data name="UsersRetrieved" xml:space="preserve">
+    <value>تم جلب بيانات المستخدمين بنجاح</value>
+  </data>
+  <data name="FailedToUpdateUser" xml:space="preserve">
+    <value>فشل تحديث بيانات المستخدم</value>
+  </data>
+  <data name="UserUpdated" xml:space="preserve">
+    <value>تم تحديث بيانات المستخدم بنجاح</value>
+  </data>
+  <data name="UserDeleted" xml:space="preserve">
+    <value>تم حذف المستخدم بنجاح</value>
+  </data>
+  <data name="FailedToDeleteUser" xml:space="preserve">
+    <value>فشل حذف المستخدم</value>
+  </data>
+  <data name="UserAdded" xml:space="preserve">
+    <value>تم إضافة المستخدم بنجاح</value>
+  </data>
+  <data name="FailedToAddUser" xml:space="preserve">
+    <value>فشل اضافه المستخدم</value>
+  </data>
 </root>

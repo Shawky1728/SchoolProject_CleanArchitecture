@@ -1,0 +1,11 @@
+﻿namespace SchoolProject.Core.Features.Users.Commands.AddUser
+{
+    public class AddUserResponse
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string? Address { get; set; }
+        public string? City { get; set; }
+        public string? Country { get; set; }
+    }
+}

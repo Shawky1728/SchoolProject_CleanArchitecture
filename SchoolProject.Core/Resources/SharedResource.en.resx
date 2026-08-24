@@ -210,4 +210,46 @@
   <data name="DepartmentAdded" xml:space="preserve">
     <value>Department added successfully.</value>
   </data>
+  <data name="CityMaxLength50" xml:space="preserve">
+    <value>City can't exceeed 50 Characters</value>
+  </data>
+  <data name="CountryMaxLength50" xml:space="preserve">
+    <value>Country can't exceeed 50 Characters</value>
+  </data>
+  <data name="InvalidEmailFormat" xml:space="preserve">
+    <value>Invalid Email Format</value>
+  </data>
+  <data name="PasswordComplexity" xml:space="preserve">
+    <value>password mus be at least 8 characters with at least one letters</value>
+  </data>
+  <data name="EmailExists" xml:space="preserve">
+    <value>Email is Already Exist</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>User not found.</value>
+  </data>
+  <data name="UserRetrieved" xml:space="preserve">
+    <value>User retrieved successfully.</value>
+  </data>
+  <data name="UsersRetrieved" xml:space="preserve">
+    <value>Users retrieved successfully.</value>
+  </data>
+  <data name="FailedToUpdateUser" xml:space="preserve">
+    <value>Failed to update user.</value>
+  </data>
+  <data name="UserUpdated" xml:space="preserve">
+    <value>User updated successfully.</value>
+  </data>
+  <data name="UserDeleted" xml:space="preserve">
+    <value>User deleted successfully.</value>
+  </data>
+  <data name="FailedToDeleteUser" xml:space="preserve">
+    <value>Failed to delete user.</value>
+  </data>
+  <data name="UserAdded" xml:space="preserve">
+    <value>User Added Successfully.</value>
+  </data>
+  <data name="FailedToAddUser" xml:space="preserve">
+    <value>Failed To Add User</value>
+  </data>
 </root>
