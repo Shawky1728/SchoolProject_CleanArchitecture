@@ -31,6 +31,7 @@ namespace SchoolProject.Data.AppMetaData
             public const string Update = Base;
             public const string Delete = Base + "/{id}";
             public const string ChangePassword = Base + "/change-password";
+            public const string SignIn = Base + "/sign-in";
         }
     }
 }

@@ -59,5 +59,6 @@ namespace SchoolProject.Core.Resources
         public const string UserAdded = "UserAdded";
         public const string FailedToAddUser = "FailedToAddUser";
         public const string FailedToChangePassword = "FailedToChangePassword";
+        public const string InvalidCredentials = "InvalidCredentials";
     }
 }

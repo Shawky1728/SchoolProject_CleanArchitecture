@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi;
 using SchoolProject.Api.Middlewares;
 using SchoolProject.Core;
 using SchoolProject.Infrastructure;
@@ -22,7 +23,23 @@ namespace SchoolProject.Api
 
             // register Swagger
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition("bearer", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Description = "JWT Authorization header using the Bearer scheme."
+                });
+
+                options.AddSecurityRequirement(document => new OpenApiSecurityRequirement
+                {
+                    [new OpenApiSecuritySchemeReference("bearer", document)] = []
+                });
+
+            });
+
 
             // Add Connection String
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -34,7 +51,7 @@ namespace SchoolProject.Api
             builder.Services.AddInfrastructureDependencies();
 
             // Add Service Dependencies
-            builder.Services.AddServiceDependencies();
+            builder.Services.AddServiceDependencies(builder.Configuration);
 
             // Add Core Dependencies
             builder.Services.AddCoreDependencies();

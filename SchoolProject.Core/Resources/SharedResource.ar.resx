@@ -255,4 +255,7 @@
   <data name="FailedToChangePassword" xml:space="preserve">
     <value>فشل تغير كلمه المرور</value>
   </data>
+  <data name="InvalidCredentials" xml:space="preserve">
+    <value>الايميل او كلمه المرور خطأ</value>
+  </data>
 </root>
