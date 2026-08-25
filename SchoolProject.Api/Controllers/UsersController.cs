@@ -1,8 +1,9 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SchoolProject.Core.Features.Users.Commands.AddUser;
-using SchoolProject.Core.Features.Users.Commands.UpdateUser;
+using SchoolProject.Core.Features.Users.Commands.ChangeUserPassword;
 using SchoolProject.Core.Features.Users.Commands.DeleteUser;
+using SchoolProject.Core.Features.Users.Commands.UpdateUser;
 using SchoolProject.Core.Features.Users.Queries.GetUserById;
 using SchoolProject.Core.Features.Users.Queries.GetUsers;
 using SchoolProject.Data.AppMetaData;
@@ -51,6 +52,13 @@ namespace SchoolProject.Api.Controllers
         public async Task<IActionResult> DeleteUser([FromRoute] Guid id)
         {
             var command = new DeleteUserCommand(id);
+            var response = await _mediator.Send(command);
+            return StatusCode((int)response.StatusCode, response);
+        }
+
+        [HttpPost(Router.Users.ChangePassword)]
+        public async Task<IActionResult> ChangeUserPassword([FromBody] ChangeUserPasswordCommand command)
+        {
             var response = await _mediator.Send(command);
             return StatusCode((int)response.StatusCode, response);
         }

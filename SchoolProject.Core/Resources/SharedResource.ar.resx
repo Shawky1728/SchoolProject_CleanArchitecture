@@ -252,4 +252,7 @@
   <data name="FailedToAddUser" xml:space="preserve">
     <value>فشل اضافه المستخدم</value>
   </data>
+  <data name="FailedToChangePassword" xml:space="preserve">
+    <value>فشل تغير كلمه المرور</value>
+  </data>
 </root>
