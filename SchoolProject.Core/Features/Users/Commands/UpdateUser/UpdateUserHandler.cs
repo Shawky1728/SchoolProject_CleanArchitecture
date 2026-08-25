@@ -1,4 +1,3 @@
-using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
@@ -24,18 +23,11 @@ namespace SchoolProject.Core.Features.Users.Commands.UpdateUser
                 return NotFound<string>(_localizer[SharedResourceKeys.UserNotFound]);
             }
 
-            // Check if email exists for another user
-            var userByEmail = await _userManager.FindByEmailAsync(request.Email);
-            if (userByEmail != null && userByEmail.Id != user.Id)
-            {
-                return BadRequest<string>(_localizer[SharedResourceKeys.EmailExists]);
-            }
+
 
             // map values to existing user
             user.NameAr = request.NameAr;
             user.NameEn = request.NameEn;
-            user.Email = request.Email;
-            user.UserName = request.Email;
             user.Address = request.Address;
             user.PhoneNumber = request.PhoneNumber;
             user.City = request.City;

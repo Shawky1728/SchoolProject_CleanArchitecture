@@ -22,9 +22,6 @@ namespace SchoolProject.Core.Features.Users.Commands.UpdateUser
                 .NotEmpty().WithMessage(_localizer[SharedResourceKeys.RequiredField])
                 .MaximumLength(500).WithMessage(_localizer[SharedResourceKeys.NameMaxLength50]);
 
-            RuleFor(x => x.Email)
-                .NotEmpty().WithMessage(_localizer[SharedResourceKeys.RequiredField])
-                .EmailAddress().WithMessage(_localizer[SharedResourceKeys.InvalidEmailFormat]);
 
             RuleFor(x => x.Address)
                 .MaximumLength(100).WithMessage(_localizer[SharedResourceKeys.AddressMaxLength100]);
