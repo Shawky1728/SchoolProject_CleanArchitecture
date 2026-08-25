@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SchoolProject.Core.Features.Users.Commands.AddUser;
 using SchoolProject.Core.Features.Users.Commands.UpdateUser;
+using SchoolProject.Core.Features.Users.Commands.DeleteUser;
 using SchoolProject.Core.Features.Users.Queries.GetUserById;
 using SchoolProject.Core.Features.Users.Queries.GetUsers;
 using SchoolProject.Data.AppMetaData;
@@ -43,6 +44,14 @@ namespace SchoolProject.Api.Controllers
         {
             var query = new GetUserByIdQuery(id);
             var response = await _mediator.Send(query);
+            return StatusCode((int)response.StatusCode, response);
+        }
+
+        [HttpDelete(Router.Users.Delete)]
+        public async Task<IActionResult> DeleteUser([FromRoute] Guid id)
+        {
+            var command = new DeleteUserCommand(id);
+            var response = await _mediator.Send(command);
             return StatusCode((int)response.StatusCode, response);
         }
     }
