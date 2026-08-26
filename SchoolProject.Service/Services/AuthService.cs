@@ -49,5 +49,38 @@ namespace SchoolProject.Service.Services
             return (tokenString, expiresIn);
 
         }
+
+        public string? ValidateToken(string token)
+        {
+            if (token == null)
+                return null;
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var symetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Key));
+
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = symetricSecurityKey,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                }, out SecurityToken securityToken);
+
+                var jwtToken = (JwtSecurityToken)securityToken;
+
+                var userId = jwtToken.Claims.First(x => x.Type == JwtRegisteredClaimNames.Sub).Value;
+
+                return userId;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }
+

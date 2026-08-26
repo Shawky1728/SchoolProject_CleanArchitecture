@@ -11,5 +11,7 @@ namespace SchoolProject.Data.Entities.Identity
         public string? Country { get; set; }
         public bool IsDeleted { get; set; } = false;
 
+        public ICollection<RefreshToken> RefreshTokens { get; set; } = new HashSet<RefreshToken>();
+
     }
 }

@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using SchoolProject.Core.Shared.ReponseHandling;
 
-namespace SchoolProject.Core.Features.Auth.Commands
+namespace SchoolProject.Core.Features.Auth.Commands.SignIn
 {
     public class SignInCommand : IRequest<Response<SignInCommandResponse>>
     {

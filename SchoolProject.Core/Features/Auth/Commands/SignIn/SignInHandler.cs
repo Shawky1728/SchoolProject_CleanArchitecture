@@ -6,13 +6,15 @@ using SchoolProject.Core.Resources;
 using SchoolProject.Core.Shared.ReponseHandling;
 using SchoolProject.Data.Entities.Identity;
 using SchoolProject.Service.Abstract;
+using System.Security.Cryptography;
 
-namespace SchoolProject.Core.Features.Auth.Commands
+namespace SchoolProject.Core.Features.Auth.Commands.SignIn
 {
     public class SignInHandler : ResponseHandler, IRequestHandler<SignInCommand, Response<SignInCommandResponse>>
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly int _refreshTokenExpiryDays = 7;
         private readonly IAuthService _authService;
         public SignInHandler(
             IStringLocalizer<SharedResource> localizer,
@@ -45,16 +47,40 @@ namespace SchoolProject.Core.Features.Auth.Commands
 
             var (token, expiresIn) = _authService.GenerateTokenAsync(user);
 
+            // generate Refresh Token 
+            var refreshToken = GenerateRefreshToken();
+            var refreshTokenExpiry = DateTime.UtcNow.AddDays(_refreshTokenExpiryDays);
+
+            var userRefreshToken = new RefreshToken
+            {
+                Token = refreshToken,
+                ExpiresAt = refreshTokenExpiry
+            };
+
+            //save refresh token
+            user.RefreshTokens.Add(userRefreshToken);
+            await _userManager.UpdateAsync(user);
+
             var response = new SignInCommandResponse
             {
                 Id = user.Id,
                 Email = user.Email,
                 Token = token,
-                ExpiresIn = expiresIn
+                ExpiresIn = expiresIn,
+                RefreshToken = new RefreshTokenResponse
+                {
+                    Token = refreshToken,
+                    ExpiresAt = refreshTokenExpiry,
+                }
             };
 
             return Success(response);
 
+        }
+
+        private static string GenerateRefreshToken()
+        {
+            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
         }
     }
 }

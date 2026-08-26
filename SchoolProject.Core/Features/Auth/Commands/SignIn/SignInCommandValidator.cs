@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Localization;
 using SchoolProject.Core.Resources;
 
-namespace SchoolProject.Core.Features.Auth.Commands
+namespace SchoolProject.Core.Features.Auth.Commands.SignIn
 {
     public class SignInCommandValidator : AbstractValidator<SignInCommand>
     {
