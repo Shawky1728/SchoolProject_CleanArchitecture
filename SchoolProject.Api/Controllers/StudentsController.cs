@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SchoolProject.Core.Features.Students.Commands.AddStudent;
 using SchoolProject.Core.Features.Students.Commands.DeleteStudent;
@@ -18,6 +19,7 @@ namespace SchoolProject.Api.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet(Router.Students.GetAll)]
         public async Task<IActionResult> GetAllStudents([FromQuery] GetStudentsRequestFilters filters, CancellationToken cancellationToken)
         {

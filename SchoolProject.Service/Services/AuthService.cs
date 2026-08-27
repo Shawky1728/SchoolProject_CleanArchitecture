@@ -6,6 +6,7 @@ using SchoolProject.Service.Abstract;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 
 namespace SchoolProject.Service.Services
 {
@@ -16,14 +17,15 @@ namespace SchoolProject.Service.Services
         {
             _jwtOptions = jwtOptions.Value;
         }
-        public (string token, int ExpiresIn) GenerateTokenAsync(User user)
+        public (string token, int ExpiresIn) GenerateTokenAsync(User user, IEnumerable<string> roles)
         {
             Claim[] claims = [
 
            new Claim (JwtRegisteredClaimNames.Sub, user.Id),
              new Claim(JwtRegisteredClaimNames.Email, user.Email),
              new Claim(JwtRegisteredClaimNames.GivenName, user.NameEn),
-             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+              new Claim(nameof(roles), JsonSerializer.Serialize(roles),JsonClaimValueTypes.JsonArray)
            ];
 
             var symetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Key));

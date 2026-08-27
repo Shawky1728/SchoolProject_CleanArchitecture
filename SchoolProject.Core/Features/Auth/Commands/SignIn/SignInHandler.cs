@@ -45,7 +45,9 @@ namespace SchoolProject.Core.Features.Auth.Commands.SignIn
                 return BadRequest<SignInCommandResponse>(SharedResourceKeys.InvalidCredentials);
             }
 
-            var (token, expiresIn) = _authService.GenerateTokenAsync(user);
+            var UserRoles = await _userManager.GetRolesAsync(user);
+
+            var (token, expiresIn) = _authService.GenerateTokenAsync(user, UserRoles);
 
             // generate Refresh Token 
             var refreshToken = GenerateRefreshToken();

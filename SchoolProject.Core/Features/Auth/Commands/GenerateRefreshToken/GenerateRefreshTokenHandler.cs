@@ -48,8 +48,10 @@ namespace SchoolProject.Core.Features.Auth.Commands.GenerateRefreshToken
             //revoke existing refresh token
             existingRefreshToken.RevokedAt = DateTime.UtcNow;
 
+            var userRoles = await _userManager.GetRolesAsync(user);
+
             //generate token
-            var (newToken, expiresIn) = _authService.GenerateTokenAsync(user);
+            var (newToken, expiresIn) = _authService.GenerateTokenAsync(user, userRoles);
 
             // generate Refresh Token 
             var newRefreshToken = GenerateRefreshToken();
