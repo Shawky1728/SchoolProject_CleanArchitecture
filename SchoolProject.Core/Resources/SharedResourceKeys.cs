@@ -60,5 +60,11 @@ namespace SchoolProject.Core.Resources
         public const string FailedToAddUser = "FailedToAddUser";
         public const string FailedToChangePassword = "FailedToChangePassword";
         public const string InvalidCredentials = "InvalidCredentials";
+
+        // Role related messages
+        public const string RoleIsExist = "RoleIsExist";
+        public const string RoleNotExist = "RoleNotExist";
+        public const string AddRoleFailed = "AddRoleFailed";
+        public const string RoleAdded = "RoleAdded";
     }
 }

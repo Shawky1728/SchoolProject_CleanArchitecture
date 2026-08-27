@@ -258,4 +258,16 @@
   <data name="InvalidCredentials" xml:space="preserve">
     <value>الايميل او كلمه المرور خطأ</value>
   </data>
+  <data name="RoleIsExist" xml:space="preserve">
+    <value>الدور موجود بالفعل</value>
+  </data>
+  <data name="RoleNotExist" xml:space="preserve">
+    <value>الدور غير موجود</value>
+  </data>
+  <data name="AddRoleFailed" xml:space="preserve">
+    <value>فشل إضافة الدور</value>
+  </data>
+  <data name="RoleAdded" xml:space="preserve">
+    <value>تم إضافة الدور بنجاح</value>
+  </data>
 </root>

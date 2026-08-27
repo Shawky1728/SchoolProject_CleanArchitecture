@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -16,6 +16,7 @@ namespace SchoolProject.Service
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IAuthorizationService, AuthorizationService>();
 
             // configure option paterrn
             services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.SectionName));

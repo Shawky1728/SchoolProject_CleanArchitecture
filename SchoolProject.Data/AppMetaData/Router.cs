@@ -34,5 +34,11 @@ namespace SchoolProject.Data.AppMetaData
             public const string SignIn = Base + "/sign-in";
             public const string RefreshToken = Base + "/refresh-token";
         }
+
+        public static class Authorization
+        {
+            private const string Base = Root + "/authorization";
+            public const string AddRole = Base + "/add-role";
+        }
     }
 }
