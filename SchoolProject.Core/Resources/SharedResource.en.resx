@@ -270,4 +270,10 @@
   <data name="RoleAdded" xml:space="preserve">
     <value>Role added successfully.</value>
   </data>
+  <data name="EditRoleFailed" xml:space="preserve">
+    <value>Failed to update role.</value>
+  </data>
+  <data name="RoleUpdated" xml:space="preserve">
+    <value>Role updated successfully.</value>
+  </data>
 </root>

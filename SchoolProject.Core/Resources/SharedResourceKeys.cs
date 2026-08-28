@@ -66,5 +66,7 @@ namespace SchoolProject.Core.Resources
         public const string RoleNotExist = "RoleNotExist";
         public const string AddRoleFailed = "AddRoleFailed";
         public const string RoleAdded = "RoleAdded";
+        public const string EditRoleFailed = "EditRoleFailed";
+        public const string RoleUpdated = "RoleUpdated";
     }
 }

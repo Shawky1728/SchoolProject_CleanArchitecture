@@ -39,6 +39,7 @@ namespace SchoolProject.Data.AppMetaData
         {
             private const string Base = Root + "/authorization";
             public const string AddRole = Base + "/add-role";
+            public const string EditRole = Base + "/edit-role";
         }
     }
 }

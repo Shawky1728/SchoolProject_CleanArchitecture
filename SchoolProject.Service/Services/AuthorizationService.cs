@@ -28,5 +28,28 @@ namespace SchoolProject.Service.Services
             }
             return "Failed";
         }
+
+        public async Task<string> EditRoleAsync(string id, string newRoleName)
+        {
+            var role = await _roleManager.FindByIdAsync(id);
+            if (role == null)
+            {
+                return "notFound";
+            }
+
+            var isExist = await _roleManager.RoleExistsAsync(newRoleName);
+            if (isExist && role.Name != newRoleName)
+            {
+                return "isExist";
+            }
+
+            role.Name = newRoleName;
+            var result = await _roleManager.UpdateAsync(role);
+            if (result.Succeeded)
+            {
+                return "Success";
+            }
+            return "Failed";
+        }
     }
 }
