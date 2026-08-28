@@ -276,4 +276,10 @@
   <data name="RoleUpdated" xml:space="preserve">
     <value>Role updated successfully.</value>
   </data>
+  <data name="DeleteRoleFailed" xml:space="preserve">
+    <value>Failed to delete role.</value>
+  </data>
+  <data name="RoleDeleted" xml:space="preserve">
+    <value>Role deleted successfully.</value>
+  </data>
 </root>

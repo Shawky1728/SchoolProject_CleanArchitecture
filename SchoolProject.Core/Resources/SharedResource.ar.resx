@@ -276,4 +276,10 @@
   <data name="RoleUpdated" xml:space="preserve">
     <value>تم تحديث الدور بنجاح</value>
   </data>
+  <data name="DeleteRoleFailed" xml:space="preserve">
+    <value>فشل حذف الدور</value>
+  </data>
+  <data name="RoleDeleted" xml:space="preserve">
+    <value>تم حذف الدور بنجاح</value>
+  </data>
 </root>

@@ -5,5 +5,6 @@ namespace SchoolProject.Service.Abstract
         Task<string> AddRoleAsync(string roleName);
         Task<bool> IsRoleExistByName(string roleName);
         Task<string> EditRoleAsync(string id, string newRoleName);
+        Task<string> DeleteRoleAsync(string id);
     }
 }

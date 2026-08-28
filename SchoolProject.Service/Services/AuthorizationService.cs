@@ -51,5 +51,21 @@ namespace SchoolProject.Service.Services
             }
             return "Failed";
         }
+
+        public async Task<string> DeleteRoleAsync(string id)
+        {
+            var role = await _roleManager.FindByIdAsync(id);
+            if (role == null)
+            {
+                return "notFound";
+            }
+
+            var result = await _roleManager.DeleteAsync(role);
+            if (result.Succeeded)
+            {
+                return "Success";
+            }
+            return "Failed";
+        }
     }
 }
