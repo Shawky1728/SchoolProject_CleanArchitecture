@@ -23,7 +23,22 @@ namespace SchoolProject.Data.Configurations
                 EmailConfirmed = true,
                 PasswordHash = DefaultUsers.AdminPasswordHash
 
-            });
+            },
+            new User
+            {
+                Id = DefaultUsers.MemberId,
+                NameAr = "عضو النظام",
+                NameEn = "System Member",
+                UserName = DefaultUsers.MemberEmail,
+                NormalizedUserName = DefaultUsers.MemberEmail.ToUpper(),
+                Email = DefaultUsers.MemberEmail,
+                NormalizedEmail = DefaultUsers.MemberEmail.ToUpper(),
+                SecurityStamp = DefaultUsers.MemberSecurityStamp,
+                ConcurrencyStamp = DefaultUsers.MemberConcurrencyStamp,
+                EmailConfirmed = true,
+                PasswordHash = DefaultUsers.MemberPasswordHash
+            }
+            );
         }
     }
 }

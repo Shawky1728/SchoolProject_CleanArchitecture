@@ -5,6 +5,7 @@ using Microsoft.Extensions.Localization;
 using SchoolProject.Core.Resources;
 using SchoolProject.Core.Shared.ReponseHandling;
 using SchoolProject.Data.Entities.Identity;
+using SchoolProject.Infrastructure.Data;
 using SchoolProject.Service.Abstract;
 using System.Security.Cryptography;
 
@@ -16,17 +17,20 @@ namespace SchoolProject.Core.Features.Auth.Commands.SignIn
         private readonly SignInManager<User> _signInManager;
         private readonly int _refreshTokenExpiryDays = 7;
         private readonly IAuthService _authService;
+        private readonly ApplicationDbContext _db;
         public SignInHandler(
             IStringLocalizer<SharedResource> localizer,
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            IAuthService authService
+            IAuthService authService,
+            ApplicationDbContext db
             )
             : base(localizer)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _authService = authService;
+            _db = db;
         }
 
         public async Task<Response<SignInCommandResponse>> Handle(SignInCommand request, CancellationToken cancellationToken)
@@ -45,9 +49,9 @@ namespace SchoolProject.Core.Features.Auth.Commands.SignIn
                 return BadRequest<SignInCommandResponse>(SharedResourceKeys.InvalidCredentials);
             }
 
-            var UserRoles = await _userManager.GetRolesAsync(user);
+            var (UserRoles, UserPermissions) = await GetUserRolesAndPermissionsAsync(user, cancellationToken);
 
-            var (token, expiresIn) = _authService.GenerateTokenAsync(user, UserRoles);
+            var (token, expiresIn) = _authService.GenerateTokenAsync(user, UserRoles, UserPermissions);
 
             // generate Refresh Token 
             var refreshToken = GenerateRefreshToken();
@@ -83,6 +87,26 @@ namespace SchoolProject.Core.Features.Auth.Commands.SignIn
         private static string GenerateRefreshToken()
         {
             return Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
+        }
+
+        private async Task<(IEnumerable<string> roles, IEnumerable<string> permissions)> GetUserRolesAndPermissionsAsync(User user, CancellationToken cancellationToken)
+        {
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+
+            //code with subquery
+            var userpermissions = await (
+                from role in _db.Roles
+                join claim in _db.RoleClaims
+                on role.Id equals claim.RoleId
+                where userRoles.Contains(role.Name!)
+                select claim.ClaimValue
+                )
+                .Distinct()
+                .ToListAsync(cancellationToken);
+
+
+            return (userRoles, userpermissions);
         }
     }
 }

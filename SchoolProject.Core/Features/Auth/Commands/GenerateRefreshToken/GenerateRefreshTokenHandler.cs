@@ -5,6 +5,7 @@ using Microsoft.Extensions.Localization;
 using SchoolProject.Core.Resources;
 using SchoolProject.Core.Shared.ReponseHandling;
 using SchoolProject.Data.Entities.Identity;
+using SchoolProject.Infrastructure.Data;
 using SchoolProject.Service.Abstract;
 using System.Security.Cryptography;
 
@@ -15,10 +16,12 @@ namespace SchoolProject.Core.Features.Auth.Commands.GenerateRefreshToken
         private readonly UserManager<User> _userManager;
         private readonly int _refreshTokenExpiryDays = 7;
         private readonly IAuthService _authService;
-        public GenerateRefreshTokenHandler(IStringLocalizer<SharedResource> localizer, UserManager<User> userManager, IAuthService authService) : base(localizer)
+        private readonly ApplicationDbContext _db;
+        public GenerateRefreshTokenHandler(IStringLocalizer<SharedResource> localizer, UserManager<User> userManager, IAuthService authService, ApplicationDbContext db) : base(localizer)
         {
             _userManager = userManager;
             _authService = authService;
+            _db = db;
         }
 
         public async Task<Response<GenerateRefreshTokenResponse>> Handle(GenerateRefreshTokenCommand request, CancellationToken cancellationToken)
@@ -48,10 +51,10 @@ namespace SchoolProject.Core.Features.Auth.Commands.GenerateRefreshToken
             //revoke existing refresh token
             existingRefreshToken.RevokedAt = DateTime.UtcNow;
 
-            var userRoles = await _userManager.GetRolesAsync(user);
+            var (userRoles, userPermissions) = await GetUserRolesAndPermissionsAsync(user, cancellationToken);
 
             //generate token
-            var (newToken, expiresIn) = _authService.GenerateTokenAsync(user, userRoles);
+            var (newToken, expiresIn) = _authService.GenerateTokenAsync(user, userRoles, userPermissions);
 
             // generate Refresh Token 
             var newRefreshToken = GenerateRefreshToken();
@@ -85,6 +88,26 @@ namespace SchoolProject.Core.Features.Auth.Commands.GenerateRefreshToken
         private static string GenerateRefreshToken()
         {
             return Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
+        }
+
+        private async Task<(IEnumerable<string> roles, IEnumerable<string> permissions)> GetUserRolesAndPermissionsAsync(User user, CancellationToken cancellationToken)
+        {
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+
+            //code with subquery
+            var userpermissions = await (
+                from role in _db.Roles
+                join claim in _db.RoleClaims
+                on role.Id equals claim.RoleId
+                where userRoles.Contains(role.Name!)
+                select claim.ClaimValue
+                )
+                .Distinct()
+                .ToListAsync(cancellationToken);
+
+
+            return (userRoles, userpermissions);
         }
     }
 }

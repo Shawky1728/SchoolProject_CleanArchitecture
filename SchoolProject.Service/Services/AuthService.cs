@@ -17,7 +17,7 @@ namespace SchoolProject.Service.Services
         {
             _jwtOptions = jwtOptions.Value;
         }
-        public (string token, int ExpiresIn) GenerateTokenAsync(User user, IEnumerable<string> roles)
+        public (string token, int ExpiresIn) GenerateTokenAsync(User user, IEnumerable<string> roles, IEnumerable<string> permissions)
         {
             Claim[] claims = [
 
@@ -25,6 +25,7 @@ namespace SchoolProject.Service.Services
              new Claim(JwtRegisteredClaimNames.Email, user.Email),
              new Claim(JwtRegisteredClaimNames.GivenName, user.NameEn),
              new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+              new Claim(nameof(permissions), JsonSerializer.Serialize(permissions),JsonClaimValueTypes.JsonArray),
               new Claim(nameof(roles), JsonSerializer.Serialize(roles),JsonClaimValueTypes.JsonArray)
            ];
 

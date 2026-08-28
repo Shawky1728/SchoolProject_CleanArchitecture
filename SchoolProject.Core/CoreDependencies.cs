@@ -2,7 +2,9 @@
 using Mapster;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
+using SchoolProject.Core.Authorization;
 using SchoolProject.Core.Behaviors;
 using System.Reflection;
 
@@ -26,6 +28,10 @@ namespace SchoolProject.Core
             // Get Validators
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+            // register AuthorizationHandler
+            services.AddTransient<IAuthorizationHandler, PermissionAuthorizationHandler>();
+            services.AddTransient<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
 
 
 

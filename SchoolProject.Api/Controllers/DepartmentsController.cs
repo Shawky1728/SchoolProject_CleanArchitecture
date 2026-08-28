@@ -1,7 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SchoolProject.Core.Authorization;
 using SchoolProject.Core.Features.Departments.Queries.GetDepartmentById;
 using SchoolProject.Data.AppMetaData;
+using SchoolProject.Data.Authorization;
 
 namespace SchoolProject.Api.Controllers
 {
@@ -12,6 +14,7 @@ namespace SchoolProject.Api.Controllers
         {
         }
 
+        [HasPermission(Permissions.GetDepartments)]
         [HttpGet(Router.Departments.GetById)]
         public async Task<IActionResult> GetDepartmentById([FromRoute] int id, CancellationToken cancellationToken)
         {

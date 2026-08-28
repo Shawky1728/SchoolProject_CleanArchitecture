@@ -1,12 +1,13 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SchoolProject.Core.Authorization;
 using SchoolProject.Core.Features.Students.Commands.AddStudent;
 using SchoolProject.Core.Features.Students.Commands.DeleteStudent;
 using SchoolProject.Core.Features.Students.Commands.UpdateStudent;
 using SchoolProject.Core.Features.Students.Queries.GetStudentById;
 using SchoolProject.Core.Features.Students.Queries.GetStudents;
 using SchoolProject.Data.AppMetaData;
+using SchoolProject.Data.Authorization;
 
 namespace SchoolProject.Api.Controllers
 {
@@ -19,7 +20,7 @@ namespace SchoolProject.Api.Controllers
 
         }
 
-        [Authorize(Roles = "Admin")]
+        [HasPermission(Permissions.GetStudents)]
         [HttpGet(Router.Students.GetAll)]
         public async Task<IActionResult> GetAllStudents([FromQuery] GetStudentsRequestFilters filters, CancellationToken cancellationToken)
         {
@@ -28,6 +29,8 @@ namespace SchoolProject.Api.Controllers
             return StatusCode((int)response.StatusCode, response);
         }
 
+
+        [HasPermission(Permissions.GetStudents)]
         [HttpGet(Router.Students.GetById)]
         public async Task<IActionResult> GetStudentById(int id, CancellationToken cancellationToken)
         {
@@ -36,6 +39,7 @@ namespace SchoolProject.Api.Controllers
             return StatusCode((int)response.StatusCode, response);
         }
 
+        [HasPermission(Permissions.AddStudent)]
         [HttpPost(Router.Students.Add)]
         public async Task<IActionResult> AddStudent(AddStudentCommand addStudentCommand, CancellationToken cancellationToken)
         {
@@ -43,6 +47,7 @@ namespace SchoolProject.Api.Controllers
             return StatusCode((int)response.StatusCode, response);
         }
 
+        [HasPermission(Permissions.UpdateStudent)]
         [HttpPut(Router.Students.Update)]
         public async Task<IActionResult> UpdateStudent([FromBody] UpdateStudentCommand updateStudentCommand, CancellationToken cancellationToken)
         {
@@ -50,6 +55,7 @@ namespace SchoolProject.Api.Controllers
             return StatusCode((int)response.StatusCode, response);
         }
 
+        [HasPermission(Permissions.DeleteStudent)]
         [HttpDelete(Router.Students.Delete)]
         public async Task<IActionResult> DeleteStudent([FromRoute] int id, CancellationToken cancellationToken)
         {

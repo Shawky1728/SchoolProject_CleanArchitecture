@@ -14,6 +14,11 @@ namespace SchoolProject.Data.Configurations
                 {
                     UserId = DefaultUsers.AdminId,
                     RoleId = DefaultRoles.AdminRoleId
+                },
+                new IdentityUserRole<string>
+                {
+                    UserId = DefaultUsers.MemberId,
+                    RoleId = DefaultRoles.MemberRoleId
                 }
                 );
         }
