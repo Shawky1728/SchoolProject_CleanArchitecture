@@ -25,6 +25,7 @@ namespace SchoolProject.Core.Resources
         public const string CountryMaxLength50 = "CountryMaxLength50";
         public const string InvalidEmailFormat = "InvalidEmailFormat";
         public const string PasswordComplexity = "PasswordComplexity";
+        public const string PasswordNotEqualConfirm = "PasswordNotEqualConfirm";
         public const string EmailExists = "EmailExists";
 
         // student related messages

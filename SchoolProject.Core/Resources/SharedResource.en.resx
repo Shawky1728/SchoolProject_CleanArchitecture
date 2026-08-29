@@ -222,6 +222,9 @@
   <data name="PasswordComplexity" xml:space="preserve">
     <value>password mus be at least 8 characters with at least one letters</value>
   </data>
+  <data name="PasswordNotEqualConfirm" xml:space="preserve">
+    <value>Password and confirm password do not match</value>
+  </data>
   <data name="EmailExists" xml:space="preserve">
     <value>Email is Already Exist</value>
   </data>

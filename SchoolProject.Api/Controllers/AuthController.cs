@@ -1,6 +1,7 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SchoolProject.Core.Features.Auth.Commands.GenerateRefreshToken;
+using SchoolProject.Core.Features.Auth.Commands.Register;
 using SchoolProject.Core.Features.Auth.Commands.SignIn;
 using SchoolProject.Data.AppMetaData;
 
@@ -22,6 +23,13 @@ namespace SchoolProject.Api.Controllers
 
         [HttpPost(Router.Users.RefreshToken)]
         public async Task<IActionResult> RefreshToken([FromBody] GenerateRefreshTokenCommand command)
+        {
+            var response = await _mediator.Send(command);
+            return StatusCode((int)response.StatusCode, response);
+        }
+
+        [HttpPost(Router.Users.Register)]
+        public async Task<IActionResult> Register([FromBody] RegisterCommand command)
         {
             var response = await _mediator.Send(command);
             return StatusCode((int)response.StatusCode, response);

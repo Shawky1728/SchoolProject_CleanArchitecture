@@ -45,6 +45,10 @@ namespace SchoolProject.Service
             };
         });
 
+            // configure mailSettings
+            services.Configure<MailSettings>(configuration.GetSection(MailSettings.SectionName));
+            services.AddScoped<IEmailService, EmailService>();
+
             return services;
         }
 

@@ -33,6 +33,7 @@ namespace SchoolProject.Data.AppMetaData
             public const string ChangePassword = Base + "/change-password";
             public const string SignIn = Base + "/sign-in";
             public const string RefreshToken = Base + "/refresh-token";
+            public const string Register = Base + "/register";
         }
 
         public static class Authorization

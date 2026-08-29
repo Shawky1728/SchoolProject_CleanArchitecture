@@ -222,6 +222,9 @@
   <data name="PasswordComplexity" xml:space="preserve">
     <value>كلمه المرور يجب ان تكون اقل شي 8 حروف وتحتوي علي ارقام واحرف</value>
   </data>
+  <data name="PasswordNotEqualConfirm" xml:space="preserve">
+    <value>كلمة المرور وتأكيد كلمة المرور غير متطابقين</value>
+  </data>
   <data name="EmailExists" xml:space="preserve">
     <value>الايميل موجود بالفعل</value>
   </data>
