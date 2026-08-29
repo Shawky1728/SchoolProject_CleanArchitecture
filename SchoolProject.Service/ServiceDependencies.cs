@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using SchoolProject.Data.Helper;
 using SchoolProject.Service.Abstract;
+using SchoolProject.Service.AuthentecationService.Implementation;
+using SchoolProject.Service.AuthentecationService.Interface;
 using SchoolProject.Service.Services;
 using System.Text;
 
@@ -16,6 +18,7 @@ namespace SchoolProject.Service
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddScoped<IAuthorizationService, AuthorizationService>();
 
             // configure option paterrn

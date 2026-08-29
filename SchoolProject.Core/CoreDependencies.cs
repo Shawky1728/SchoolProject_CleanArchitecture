@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using SchoolProject.Core.Authorization;
 using SchoolProject.Core.Behaviors;
+using SchoolProject.Core.Filters;
 using System.Reflection;
 
 namespace SchoolProject.Core
@@ -33,6 +34,8 @@ namespace SchoolProject.Core
             services.AddTransient<IAuthorizationHandler, PermissionAuthorizationHandler>();
             services.AddTransient<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
 
+
+            services.AddScoped<AuthFilter>();
 
 
             return services;
