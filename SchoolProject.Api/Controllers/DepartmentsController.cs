@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SchoolProject.Core.Authorization;
 using SchoolProject.Core.Features.Departments.Queries.GetDepartmentById;
+using SchoolProject.Core.Features.Departments.Queries.GetDepartmentStudentCount;
 using SchoolProject.Data.AppMetaData;
 using SchoolProject.Data.Authorization;
 
@@ -19,6 +20,13 @@ namespace SchoolProject.Api.Controllers
         public async Task<IActionResult> GetDepartmentById([FromRoute] int id, CancellationToken cancellationToken)
         {
             var query = new GetDepartmentByIdQuery(id);
+            var response = await _mediator.Send(query, cancellationToken);
+            return StatusCode((int)response.StatusCode, response);
+        }
+
+        [HttpGet(Router.Departments.GetStudentCount)]
+        public async Task<IActionResult> GetDepartmentStudentCount([FromQuery] GetDepartmentStudentCountQuery query, CancellationToken cancellationToken)
+        {
             var response = await _mediator.Send(query, cancellationToken);
             return StatusCode((int)response.StatusCode, response);
         }

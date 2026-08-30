@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SchoolProject.Data.Configurations;
 using SchoolProject.Data.Entities;
 using SchoolProject.Data.Entities.Identity;
+using SchoolProject.Data.Entities.Views;
 
 namespace SchoolProject.Infrastructure.Data
 {
@@ -26,6 +27,10 @@ namespace SchoolProject.Infrastructure.Data
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<Ins_Subject> Ins_Subjects { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+
+
+        // Views
+        public DbSet<ViewDepartments> ViewDepartments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
