@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SchoolProject.Data.Configurations;
 using SchoolProject.Data.Entities;
 using SchoolProject.Data.Entities.Identity;
+using SchoolProject.Data.Entities.Procedures;
 using SchoolProject.Data.Entities.Views;
 
 namespace SchoolProject.Infrastructure.Data
@@ -31,6 +32,9 @@ namespace SchoolProject.Infrastructure.Data
 
         // Views
         public DbSet<ViewDepartments> ViewDepartments { get; set; }
+
+        // Procedures
+        public DbSet<DepartmentProc> DepartmentProcs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
